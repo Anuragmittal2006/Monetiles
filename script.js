@@ -15,9 +15,9 @@ function setupGame() {
   rewardedPoints = 0;
   updateWallet();
 
-  // Assign direct links and rewarded tiles
-  const directLinkTiles = [0, 1, 2]; // Assuming tiles 0, 1, 2 are direct links
-  const rewardedTiles = [3, 4, 5];   // Assuming tiles 3, 4, 5 are rewarded
+  // Generate random indices for direct link tiles and rewarded tiles
+  const directLinkIndices = generateRandomIndices(6, 9);
+  const rewardedIndices = generateRandomIndices(3, 9);
 
   // Assign click event to each tile
   tiles.forEach((tile, index) => {
@@ -28,9 +28,9 @@ function setupGame() {
       tile.style.animation = 'flip 0.5s ease';
 
       setTimeout(() => {
-        if (directLinkTiles.includes(index)) {
+        if (directLinkIndices.includes(index)) {
           window.location.href = "https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914";
-        } else if (rewardedTiles.includes(index)) {
+        } else if (rewardedIndices.includes(index)) {
           // Add rewarded points to virtual wallet
           rewardedPoints += 10;
           updateWallet();
@@ -40,7 +40,7 @@ function setupGame() {
           rewardText.textContent = '+10';
           tile.appendChild(rewardText);
         } else {
-          // Handle other tiles if needed
+          // Non-rewarded tile behavior (do nothing)
         }
       }, 500);
     });
@@ -62,3 +62,15 @@ playAgainButton.addEventListener('click', () => {
   // Reset game
   setupGame();
 });
+
+// Function to generate an array of random indices
+function generateRandomIndices(count, total) {
+  const indices = [];
+  while (indices.length < count) {
+    const index = Math.floor(Math.random() * total);
+    if (!indices.includes(index)) {
+      indices.push(index);
+    }
+  }
+  return indices;
+}
