@@ -4,7 +4,7 @@ body, html {
   padding: 0;
   height: 100%;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #f8a5c2, #e6b0ed); /* Soft gradient background with pink and purple */
+  background: linear-gradient(135deg, #20A4F3, #182B3A); /* Updated gradient background */
 }
 
 .container {
@@ -108,4 +108,25 @@ body, html {
     height: 80px; /* Adjusted tile size for smaller screens */
     font-size: 16px; /* Adjusted font size for smaller screens */
   }
+}
+.wallet-container {
+  position: relative;
+}
+
+#withdraw {
+  position: absolute;
+  top: calc(100% + 10px); /* Place button below wallet box */
+  right: 10px; /* Align button to the right */
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #6b5b95; /* Deep purple withdraw button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+#withdraw:hover {
+  background-color: #563d7c; /* Darker purple on hover */
 }
