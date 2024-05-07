@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gift Card Options</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="option amazon">
+      <div class="content">
+        <img src="amazon_logo.png" alt="Amazon Logo">
+        <div class="sub-options">
+          <button class="sub-option" data-amount="10">Get $10 Amazon Gift Card</button>
+          <button class="sub-option" data-amount="25">Get $25 Amazon Gift Card</button>
+          <button class="sub-option" data-amount="50">Get $50 Amazon Gift Card</button>
+        </div>
+      </div>
+    </div>
+    <div class="option flipkart">
+      <div class="content">
+        <img src="flipkart_logo.png" alt="Flipkart Logo">
+        <div class="sub-options">
+          <button class="sub-option" data-amount="10">Get $10 Flipkart Gift Card</button>
+          <button class="sub-option" data-amount="25">Get $25 Flipkart Gift Card</button>
+          <button class="sub-option" data-amount="50">Get $50 Flipkart Gift Card</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const buttons = document.querySelectorAll('.sub-option');
+      buttons.forEach(button => {
+        button.addEventListener('click', function() {
+          alert("This feature is still in development. Stay tuned!");
+        });
+      });
+    });
+  </script>
+</body>
+</html>
