@@ -130,3 +130,18 @@ body, html {
 #withdraw:hover {
   background-color: #563d7c; /* Darker purple on hover */
 }
+.about-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #20A4F3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .about-button:hover {
+      background-color: #182B3A;
+    }
