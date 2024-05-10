@@ -13,6 +13,9 @@ withdrawButton.addEventListener('click', () => {
   // Redirect user to the withdraw page
   window.location.href = "withdraw.html";
 });
+function redirectToLogin() {
+    window.location.href = "login.html";
+}
 
 // Load reward point history and flipped tiles from local storage
 if (localStorage.getItem('rewardedPoints')) {
