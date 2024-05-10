@@ -3,8 +3,7 @@ const tiles = document.querySelectorAll('.tile');
 const playAgainButton = document.getElementById('play-again');
 const walletBalance = document.getElementById('wallet-balance');
 const withdrawButton = document.getElementById('withdraw');
-
-// Initialize rewarded points and flipped tiles counters
+const redirectToLogin = document.getElementById('openLoginFormButton')// Initialize rewarded points and flipped tiles counters
 let rewardedPoints = 0;
 let flippedTiles = 0;
 
@@ -13,9 +12,9 @@ withdrawButton.addEventListener('click', () => {
   // Redirect user to the withdraw page
   window.location.href = "withdraw.html";
 });
-function redirectToLogin() {
-    window.location.href = "login.html";
-}
+redirectToLogin.addEventListner('click', () => {
+    window.location.href = "LOGIN.HTMl";
+});
 
 // Load reward point history and flipped tiles from local storage
 if (localStorage.getItem('rewardedPoints')) {
