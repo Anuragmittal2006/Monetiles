@@ -3,7 +3,6 @@ const tiles = document.querySelectorAll('.tile');
 const playAgainButton = document.getElementById('play-again');
 const walletBalance = document.getElementById('wallet-balance');
 const withdrawButton = document.getElementById('withdraw');
-const redirectToLogin = document.getElementById('openLoginFormButton')// Initialize rewarded points and flipped tiles counters
 let rewardedPoints = 0;
 let flippedTiles = 0;
 
