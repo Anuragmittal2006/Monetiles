@@ -5,6 +5,7 @@ const walletBalance = document.getElementById('wallet-balance');
 const withdrawButton = document.getElementById('withdraw');
 let rewardedPoints = 0;
 let flippedTiles = 0;
+let tilesClickable = true; // Variable to track whether tiles are clickable
 
 // Add click event listener to the withdraw button
 withdrawButton.addEventListener('click', () => {
@@ -65,46 +66,45 @@ function setupGame() {
   // Generate random indices for rewarded tiles
   let rewardedIndices = generateRandomIndices(3, tiles.length);
 
-  // Assign direct link and reward to tiles
+  // Assign click event listener to tiles
   tiles.forEach((tile, index) => {
-    if (flippedStatus[index] === 'unflipped') {
-      if (rewardedIndices.includes(index)) {
-        tile.addEventListener('click', () => {
-          if (flippedStatus[index] !== 'rewarded') { // Check if the tile hasn't been rewarded before
-            // Add rewarded points to virtual wallet
-            rewardedPoints += 10;
-            updateWallet();
-            // Note rewarded points on tile
-            const rewardText = document.createElement('div');
-            rewardText.classList.add('reward-text');
-            rewardText.textContent = '+10';
-            tile.appendChild(rewardText);
-            // Change tile color when flipped
-            tile.classList.add('flipped');
-            // Prevent further clicks on the tile
-            tile.style.pointerEvents = 'none';
-            flippedStatus[index] = 'rewarded';
-            localStorage.setItem('flippedStatus', JSON.stringify(flippedStatus));
-            updateFlippedTilesCount();
-            
-          }
-        });
-      } else {
-        // Assign direct link to tile
-        tile.addEventListener('click', () => {
+    tile.addEventListener('click', () => {
+      // Check if tiles are clickable
+      if (!tilesClickable) return;
+
+      // Disable other tiles
+      tilesClickable = false;
+
+      // Process click event for the clicked tile
+      if (flippedStatus[index] === 'unflipped') {
+        if (rewardedIndices.includes(index)) {
+          // Handle rewarded tile click
+          rewardedPoints += 10;
+          updateWallet();
+          // Note rewarded points on tile
+          const rewardText = document.createElement('div');
+          rewardText.classList.add('reward-text');
+          rewardText.textContent = '+10';
+          tile.appendChild(rewardText);
           // Change tile color when flipped
           tile.classList.add('flipped');
-          // Prevent further clicks on the tile
-          tile.style.pointerEvents = 'none';
-          // Redirect to direct link
+          flippedStatus[index] = 'rewarded';
+        } else {
+          // Handle link tile click
           window.location.href = "https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914";
+          tile.classList.add('flipped');
           flippedStatus[index] = 'flipped';
-          localStorage.setItem('flippedStatus', JSON.stringify(flippedStatus));
-          updateFlippedTilesCount();
-         
-        });
+        }
+        // Update flipped tiles count and store flipped status
+        localStorage.setItem('flippedStatus', JSON.stringify(flippedStatus));
+        updateFlippedTilesCount();
       }
-    }
+
+      // Re-enable tiles after a short delay (adjust the delay as needed)
+      setTimeout(() => {
+        tilesClickable = true;
+      }, 1000);
+    });
   });
 }
 
@@ -122,9 +122,6 @@ function generateRandomIndices(count, total) {
   }
   return indices;
 }
-
-// Check if all rewarded tiles are flipped
-
 
 // Initialize the game
 setupGame();
