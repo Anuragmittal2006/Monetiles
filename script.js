@@ -103,7 +103,7 @@ function setupGame() {
       // Re-enable tiles after a short delay (adjust the delay as needed)
       setTimeout(() => {
         tilesClickable = true;
-      }, 1500);
+      }, 2000);
     });
   });
 }
