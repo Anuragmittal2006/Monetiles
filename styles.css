@@ -121,7 +121,7 @@ body {
 /* Button styles */
 .btn {
   font-size: .75rem;
-  padding: .5rem .25rem;
+  padding: .5rem .5rem;
   border: none;
   outline: none;
   border-radius: 0.4rem;
