@@ -20,11 +20,28 @@
       <div class="tile" id="tile8"></div>
       <div class="tile" id="tile9"></div>
     </div>
-    <button id="play-again" class="btn">Play Again</button>
+    <button id="play-again">Play Again</button>
     <div id="wallet" class="wallet-box">Wallet: <span id="wallet-balance">0</span>
-       <button id="withdraw" class="btn">Withdraw</button>
-       <button onclick="window.location.href='about game.html'" class="about-button btn">About Game</button>
-       <button onclick="window.location.href='login.html'" class="btn">Login / Sign Up</button>
+      <!-- Hamburger menu container -->
+<div class="hamburger-menu">
+  <!-- Hamburger icon -->
+  <button class="hamburger-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <!-- Menu items -->
+  <div class="menu-items">
+    <div class="menu-column">
+      <button id="withdraw" class="btn">Withdraw</button>
+     <button onclick="window.location.href='about game.html'" class="about-button btn">About Game</button>
+          <button onclick="window.location.href='login.html'" class="btn">Login / Sign Up</button>
+    
+  </div>
+</div>
+
+     
+       
     </div>
   </div>
  
@@ -36,7 +53,7 @@
   
   <script id="hydro_config" type="text/javascript">
     window.Hydro_tagId = "c754accc-ba43-45d8-9d55-0b52c35e5cf7";
-  </script>
+    </script>
   <script id="hydro_script" src="https://track.hydro.online/"></script>
 </body>
 </html>
