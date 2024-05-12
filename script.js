@@ -122,6 +122,22 @@ function generateRandomIndices(count, total) {
   }
   return indices;
 }
+// Function to toggle hamburger menu visibility
+function toggleMenu() {
+  const menuItems = document.querySelector('.menu-items');
+  const hamburgerIcon = document.querySelector('.hamburger-icon');
+
+  if (menuItems && hamburgerIcon) {
+    menuItems.classList.toggle('active');
+    hamburgerIcon.classList.toggle('active');
+  }
+}
+
+// Event listener for hamburger icon click
+const hamburgerIcon = document.querySelector('.hamburger-icon');
+if (hamburgerIcon) {
+  hamburgerIcon.addEventListener('click', toggleMenu);
+}
 
 // Initialize the game
 setupGame();
