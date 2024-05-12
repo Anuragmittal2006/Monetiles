@@ -91,10 +91,15 @@ body {
   border: none;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  -webkit-box-reflect: below 10px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.4));
 }
-
 #play-again:hover {
-  background-color: #563d7c;
+  background: rgb(2,29,78);
+  background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+  color: rgb(4, 4, 38);
+}
+.play-again:active{
+  scale: 0.92;
 }
 
 /* Wallet box styles */
@@ -106,7 +111,9 @@ body {
   background-color: rgb(14, 14, 26);
   color: #fff;
   border-radius: 5px;
+  
 }
+
 
 /* Withdraw button styles */
 #withdraw {
@@ -122,6 +129,7 @@ body {
 .btn {
   font-size: .75rem;
   padding: .5rem .5rem;
+  margin-bottom: 10px;
   border: none;
   outline: none;
   border-radius: 0.4rem;
@@ -132,7 +140,7 @@ body {
   font-weight: 700;
   transition: 0.6s;
   box-shadow: 0px 0px 60px #1f4c65;
-  -webkit-box-reflect: below 10px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.4));
+  
 }
 
 .btn:active {
@@ -163,6 +171,65 @@ body {
   /* Adjustments for smaller screens */
   .btn {
     font-size: .5rem;
-    padding: .3rem .15rem;
+    padding: 10px 0;
   }
 }
+/* Hamburger menu styles */
+.hamburger-menu {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+}
+
+.menu-items {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px); /* Adjust vertical position as needed */
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  z-index: 998; /* Ensure the menu is below the hamburger icon */
+}
+
+.menu-items.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.menu-column {
+  float: right;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+/* Hamburger icon styles */
+.hamburger-icon {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 10;
+}
+
+.hamburger-icon span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 5px;
+  transition: transform 0.3s ease;
+}
+/*icon animation*/
+.hamburger-icon.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-icon.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-icon.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
