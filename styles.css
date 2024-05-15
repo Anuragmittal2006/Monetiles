@@ -8,12 +8,7 @@ body, html {
   font-family: Arial, sans-serif;
 }
 
-/* Background image */
-body {
-  background-image: url('navy-blue-background-high-quality-free-photo (1).jpg');
-  background-size: auto;
-  background-position: center;
-}
+
 
 /* Container styles */
 .container {
