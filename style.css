@@ -3,11 +3,7 @@ body {
   background-color: #182B3A;
   margin: 0;
   padding: 0;
-}
-body {
-  background-image: url('navy-blue-background-high-quality-free-photo (1).jpg');
-  background-size: auto;
-  background-position: center;
+  background: linear-gradient(135DEG,#2962FF, #00B0FF);
 }
 
 .container {
