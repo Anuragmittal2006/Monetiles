@@ -47,24 +47,6 @@ function resetGame() {
   setupGame();
 }
 
-// Function to handle click on linked tile
-function handleLinkTileClick() {
-  // Check if the link is a direct link
-  const directLink = "https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914"; // Change this to your direct link
-  if (directLink === "https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914") {
-    // Open the direct link in the current tab
-    window.location.href = directLink;
-  } else {
-    // Open the link in a new tab
-    window.open(directLink, '_blank');
-  }
-
-  // Reload the main game page after 5 seconds
-  setTimeout(() => {
-    window.location.reload();
-  }, 5000);
-}
-
 // Function to set up the game
 function setupGame() {
   // Reset wallet balance and flipped tiles counter
@@ -109,7 +91,9 @@ function setupGame() {
           flippedStatus[index] = 'rewarded';
         } else {
           // Handle link tile click
-          handleLinkTileClick();
+          window.location.href = "https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914";
+          tile.classList.add('flipped');
+          flippedStatus[index] = 'flipped';
         }
         // Update flipped tiles count and store flipped status
         localStorage.setItem('flippedStatus', JSON.stringify(flippedStatus));
@@ -158,3 +142,4 @@ if (hamburgerIcon) {
 
 // Initialize the game
 setupGame();
+
