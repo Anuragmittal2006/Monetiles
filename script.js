@@ -90,8 +90,9 @@ function setupGame() {
           tile.classList.add('flipped');
           flippedStatus[index] = 'rewarded';
         } else {
-          // Handle link tile click
-          window.location.href = "https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914";
+          // Handle direct link tile click
+          openLinkInBackground("https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914");
+          // Mark tile as flipped
           tile.classList.add('flipped');
           flippedStatus[index] = 'flipped';
         }
@@ -122,6 +123,25 @@ function generateRandomIndices(count, total) {
   }
   return indices;
 }
+
+// Function to open a link in background
+function openLinkInBackground(url) {
+    // Create a new invisible <a> element
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = "_blank"; // Open in a new tab/window
+    link.rel = "noopener noreferrer"; // Security best practice
+
+    // Append the link to the document body
+    document.body.appendChild(link);
+
+    // Trigger a click event on the link
+    link.click();
+
+    // Remove the link from the document body
+    document.body.removeChild(link);
+}
+
 // Function to toggle hamburger menu visibility
 function toggleMenu() {
   const menuItems = document.querySelector('.menu-items');
