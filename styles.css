@@ -6,6 +6,7 @@ body, html {
   padding: 0;
   height: 100%;
   font-family: Arial, sans-serif;
+  background: linear-gradient(135DEG,#2962FF, #00B0FF);
 }
 
 
