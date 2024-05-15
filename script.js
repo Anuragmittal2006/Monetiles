@@ -47,6 +47,18 @@ function resetGame() {
   setupGame();
 }
 
+// Function to set up the game in a new tab
+function setupGameInNewTab() {
+  // Open the game in a new tab
+  const gameTab = window.open("index.html", '_blank');
+  
+  // Update the flipped status in local storage
+  localStorage.setItem('flippedStatus', JSON.stringify(flippedStatus));
+
+  // Close the current tab (optional)
+  // window.close();
+}
+
 // Function to set up the game
 function setupGame() {
   // Reset wallet balance and flipped tiles counter
@@ -119,18 +131,6 @@ function generateRandomIndices(count, total) {
     }
   }
   return indices;
-}
-
-// Function to set up the game in a new tab
-function setupGameInNewTab() {
-  // Open the game in a new tab
-  const gameTab = window.open("index.html", '_blank');
-  
-  // Update the flipped status in local storage
-  localStorage.setItem('flippedStatus', JSON.stringify(flippedStatus));
-
-  // Close the current tab (optional)
-  window.close();
 }
 
 // Function to toggle hamburger menu visibility
