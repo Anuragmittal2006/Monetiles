@@ -3,7 +3,7 @@ body {
   background-color: #182B3A;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135DEG,#2962FF, #00B0FF);
+  background: linear-gradient(135deg, #2962FF, #00B0FF);
 }
 
 .container {
@@ -64,10 +64,10 @@ body {
     padding: 20px;
   }
 }
+
 .amazon {
   background: linear-gradient(135deg, black, 40%, orange, 50%, white);
 }
-
 
 .flipkart {
   background: linear-gradient(135deg, yellow, blue);
