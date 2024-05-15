@@ -107,6 +107,17 @@ function setupGame() {
     });
   });
 }
+// Function to handle click on linked tile
+function handleLinkTileClick() {
+  // Open the link in a new tab
+  window.open("https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914", '_blank');
+
+  // Reload the main game page after 5 seconds
+  setTimeout(() => {
+    window.location.reload();
+  }, 5000);
+}
+
 
 // Play again button functionality
 playAgainButton.addEventListener('click', resetGame);
