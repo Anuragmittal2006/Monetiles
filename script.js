@@ -49,9 +49,16 @@ function resetGame() {
 
 // Function to handle click on linked tile
 function handleLinkTileClick() {
-  // Open the link in a new tab
-  window.open("https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914", '_blank');
-  
+  // Check if the link is a direct link
+  const directLink = "https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914"; // Change this to your direct link
+  if (directLink === "https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914") {
+    // Open the direct link in the current tab
+    window.location.href = directLink;
+  } else {
+    // Open the link in a new tab
+    window.open(directLink, '_blank');
+  }
+
   // Reload the main game page after 5 seconds
   setTimeout(() => {
     window.location.reload();
