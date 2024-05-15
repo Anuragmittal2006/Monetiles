@@ -124,23 +124,14 @@ function generateRandomIndices(count, total) {
   return indices;
 }
 
-// Function to open a link in background
+// Function to open a link in background// Function to open a link in background
 function openLinkInBackground(url) {
-    // Create a new invisible <a> element
-    const link = document.createElement('a');
-    link.href = url;
-    link.target = "_blank"; // Open in a new tab/window
-    link.rel = "noopener noreferrer"; // Security best practice
-
-    // Append the link to the document body
-    document.body.appendChild(link);
-
-    // Trigger a click event on the link
-    link.click();
-
-    // Remove the link from the document body
-    document.body.removeChild(link);
+    // Open the link in a new background tab
+    const newTab = window.open(url, '_blank');
+    newTab.blur(); // Move focus away from the new tab
+    window.focus(); // Focus back on the main tab
 }
+
 
 // Function to toggle hamburger menu visibility
 function toggleMenu() {
