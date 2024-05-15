@@ -90,11 +90,8 @@ function setupGame() {
           tile.classList.add('flipped');
           flippedStatus[index] = 'rewarded';
         } else {
-          // Handle direct link tile click
-          openLinkInBackground("https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914");
-          // Mark tile as flipped
-          tile.classList.add('flipped');
-          flippedStatus[index] = 'flipped';
+          // Handle link tile click by opening game in a new tab
+          setupGameInNewTab();
         }
         // Update flipped tiles count and store flipped status
         localStorage.setItem('flippedStatus', JSON.stringify(flippedStatus));
@@ -124,14 +121,17 @@ function generateRandomIndices(count, total) {
   return indices;
 }
 
-// Function to open a link in background// Function to open a link in background
-function openLinkInBackground(url) {
-    // Open the link in a new background tab
-    const newTab = window.open(url, '_blank');
-    newTab.blur(); // Move focus away from the new tab
-    window.focus(); // Focus back on the main tab
-}
+// Function to set up the game in a new tab
+function setupGameInNewTab() {
+  // Open the game in a new tab
+  const gameTab = window.open("index.html", '_blank');
+  
+  // Update the flipped status in local storage
+  localStorage.setItem('flippedStatus', JSON.stringify(flippedStatus));
 
+  // Close the current tab (optional)
+  window.close();
+}
 
 // Function to toggle hamburger menu visibility
 function toggleMenu() {
