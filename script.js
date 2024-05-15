@@ -47,16 +47,15 @@ function resetGame() {
   setupGame();
 }
 
-// Function to set up the game in a new tab
-function setupGameInNewTab() {
-  // Open the game in a new tab
-  const gameTab = window.open("index.html", '_blank');
+// Function to handle click on linked tile
+function handleLinkTileClick() {
+  // Open the link in a new tab
+  window.open("https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914", '_blank');
   
-  // Update the flipped status in local storage
-  localStorage.setItem('flippedStatus', JSON.stringify(flippedStatus));
-
-  // Close the current tab (optional)
-  // window.close();
+  // Reload the main game page after 5 seconds
+  setTimeout(() => {
+    window.location.reload();
+  }, 5000);
 }
 
 // Function to set up the game
@@ -102,8 +101,8 @@ function setupGame() {
           tile.classList.add('flipped');
           flippedStatus[index] = 'rewarded';
         } else {
-          // Handle link tile click by opening game in a new tab
-          setupGameInNewTab();
+          // Handle link tile click
+          handleLinkTileClick();
         }
         // Update flipped tiles count and store flipped status
         localStorage.setItem('flippedStatus', JSON.stringify(flippedStatus));
