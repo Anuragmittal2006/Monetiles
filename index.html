@@ -1,21 +1,18 @@
-<html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memory Game</title>
   <link rel="stylesheet" href="styles.css">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4351253572981801"
-     crossorigin="anonymous"></script>
-
-  
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4351253572981801"
-     crossorigin="anonymous"></script>
- 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4351253572981801" crossorigin="anonymous"></script>
   <meta name="google-adsense-account" content="ca-pub-4351253572981801">
 </head>
 <body>
   <div class="container">
+    <!-- Welcome Message -->
+    <div id="welcome-message" class="welcome-message"></div>
+
     <div class="game-container">
       <div class="tile" id="tile1"></div>
       <div class="tile" id="tile2"></div>
@@ -30,48 +27,65 @@
     <button id="play-again">Play Again</button>
     <div id="wallet" class="wallet-box">Wallet: <span id="wallet-balance">0</span>
       <!-- Hamburger menu container -->
-<div class="hamburger-menu">
-  <!-- Hamburger icon -->
-  <button class="hamburger-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <!-- Menu items -->
-  <div class="menu-items">
-    <div class="menu-column">
-      <button id="withdraw" class="btn">Withdraw</button>
-     <button onclick="window.location.href='about game.html'" class="about-button btn">About Game</button>
-          <button onclick="window.location.href='login.html'" class="btn">Login / Sign Up</button>
+      <div class="hamburger-menu">
+        <!-- Hamburger icon -->
+        <button class="hamburger-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <!-- Menu items -->
+        <div class="menu-items">
+          <div class="menu-column">
+            <button id="withdraw" class="btn">Withdraw</button>
+            <button onclick="window.location.href='about game.html'" class="about-button btn">About Game</button>
+            <button onclick="window.location.href='login.html'" class="btn">Login / Sign Up</button>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-</div>
-  </div>
     <a id="linkTile" href="https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914" target="_blank">Link Tile</a>
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4351253572981801"
-     crossorigin="anonymous"></script>
-<!-- TREASURE TILES -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-4351253572981801"
-     data-ad-slot="8555920827"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4351253572981801"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="autorelaxed"
-     data-ad-client="ca-pub-4351253572981801"
-     data-ad-slot="8557255989"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4351253572981801" crossorigin="anonymous"></script>
+    <!-- TREASURE TILES -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-4351253572981801"
+         data-ad-slot="8555920827"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4351253572981801" crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-format="autorelaxed"
+         data-ad-client="ca-pub-4351253572981801"
+         data-ad-slot="8557255989"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
     <script async src="https://js.onclckmn.com/static/onclicka.js" data-admpid="183067"></script>
-  <script src="script.js"></script>
-  </body>
+    <script>
+      // Display welcome message if username is present in the URL
+      document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+
+        if (username) {
+          const welcomeMessage = document.getElementById('welcome-message');
+          welcomeMessage.textContent = `Welcome, ${username}!`;
+          welcomeMessage.style.display = 'block';
+
+          // Hide the welcome message after 3 seconds
+          setTimeout(() => {
+            welcomeMessage.style.display = 'none';
+          }, 3000);
+        }
+      });
+    </script>
+    <script src="script.js"></script>
+  </div>
+</body>
 </html>
