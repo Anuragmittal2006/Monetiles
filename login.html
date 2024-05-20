@@ -3,37 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN/SIGNUP</title>
+    <title>Login/SignUp</title>
     <link rel="stylesheet" href="login.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4351253572981801"
-     crossorigin="anonymous"></script>
-    <meta name="google-adsense-account" content="ca-pub-4351253572981801">
-
+    <script type="module" src="register.js" defer></script>
 </head>
 <body>
     <div class="container right-panel-active">
-
         <div class="container__form container--signup">
             <form action="#" class="form" id="form1">
                 <h2 class="form__title">Sign Up</h2>
-                <input type="text" placeholder="User" class="input" />
-                <input type="email" placeholder="Email" class="input" />
-                <input type="password" placeholder="Password" class="input" />
-                <button class="btn">Sign Up</button>
+                <input type="text" id="username-signup" placeholder="User" class="input" />
+                <input type="email" id="email-signup" placeholder="Email" class="input" />
+                <input type="password" id="password-signup" placeholder="Password" class="input" />
+                <button class="btn" type="submit">Sign Up</button>
             </form>
         </div>
-
-
         <div class="container__form container--signin">
             <form action="#" class="form" id="form2">
                 <h2 class="form__title">Sign In</h2>
-                <input type="email" placeholder="Email" class="input" />
-                <input type="password" placeholder="Password" class="input" />
-                <a href="#" class="link">Forgot your password?</a>
-                <button class="btn">Sign In</button>
+                <input type="email" id="email-signin" placeholder="Email" class="input" />
+                <input type="password" id="password-signin" placeholder="Password" class="input" />
+                <a href="#" class="link" id="forgot-password-link">Forgot your password?</a>
+                <button class="btn" type="submit">Sign In</button>
             </form>
         </div>
-
         <div class="container__overlay">
             <div class="overlay">
                 <div class="overlay__panel overlay--left">
@@ -46,6 +39,5 @@
         </div>
     </div>
     <script defer src="main.js"></script>
-    
 </body>
 </html>
