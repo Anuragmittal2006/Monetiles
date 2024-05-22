@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification, } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -13,12 +14,14 @@ const firebaseConfig = {
     messagingSenderId: "901706185644",
     appId: "1:901706185644:web:1d60d83de54f3cea4d9809",
     measurementId: "G-5B8WKYPSKK"
+
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const db = getFirestore(app); // Initialize Firestore
 
 // Ensure the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
@@ -43,6 +46,42 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("spinner").style.display = "none";
     }
 
+    // Function to update the wallet balance in the DOM
+    function updateWalletBalance(balance) {
+        const balanceDiv = document.getElementById("wallet");
+        balanceDiv.innerText = `Wallet Balance: ${balance}`;
+    }
+
+    // Function to listen to real-time updates for the user's document
+    function listenToUserDocument(uid) {
+        const userDocRef = doc(db, "users", uid);
+        onSnapshot(userDocRef, (doc) => {
+            if (doc.exists()) {
+                const userData = doc.data();
+                updateWalletBalance(userData.walletBalance);
+            } else {
+                console.log("No such document!");
+            }
+        });
+    }
+
+    // Function to create a new user document with initial wallet balance
+    async function createUserDocument(uid, username) {
+        console.log("Creating user document for UID:", uid);
+        try {
+            await setDoc(doc(db, "users", uid), {
+                username: username,
+                walletBalance: 0 // Set initial wallet balance to 0
+            });
+            console.log("User document successfully created!");
+            // Start listening to real-time updates for the user's document
+            listenToUserDocument(uid);
+        } catch (error) {
+            console.error("Error creating user document: ", error);
+            displayMessage(`Error creating user document: ${error.message}`, "error");
+        }
+    }
+
     // Sign Up
     const signUpForm = document.getElementById('form1');
     signUpForm.addEventListener("submit", function (event) {
@@ -56,12 +95,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Send email verification
                 const user = userCredential.user;
                 sendEmailVerification(user)
                     .then(() => {
                         displayMessage("Email verification sent! Please verify your email.", "info");
-                        
+
+                        // Create user document in Firestore
+                        createUserDocument(user.uid, username);
+
                         // Check email verification status periodically
                         const intervalId = setInterval(() => {
                             user.reload()
@@ -70,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         clearInterval(intervalId);
                                         hideSpinner();
                                         displayMessage("Email verified! Account created successfully.", "success");
+
                                         // Redirect to index.html with username as query parameter
                                         window.location.href = `index.html?username=${encodeURIComponent(username)}`;
                                     }
@@ -129,6 +171,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 const user = userCredential.user;
                 // Redirect to index.html
                 window.location.href = `index.html?username=${encodeURIComponent(user.email)}`;
+                // Start listening to real-time updates for the user's document
+                listenToUserDocument(user.uid);
             })
             .catch((error) => {
                 hideSpinner();
@@ -156,5 +200,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 const errorMessage = error.message;
                 displayMessage(errorMessage, "error");
             });
+    });
+});
+
+// Logout Button Click Event
+const logoutBtn = document.getElementById('logoutBtn');
+logoutBtn.addEventListener('click', function() {
+    signOut(auth).then(() => {
+        // Sign-out successful.
+        console.log("User logged out successfully.");
+        // Redirect to login page or another page after logout
+        window.location.href = "login.html"; // Change this to your desired page URL
+    }).catch((error) => {
+        // An error happened.
+        console.error("Error logging out:", error);
     });
 });
