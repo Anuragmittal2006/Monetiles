@@ -143,3 +143,36 @@ if (hamburgerIcon) {
 
 // Initialize the game
 setupGame();
+// Get the modal
+const modal = document.getElementById('instruction-modal');
+
+// Get the <span> element that closes the modal
+const closeBtn = document.getElementsByClassName('close')[0];
+
+// Function to check if the modal should be displayed
+function shouldShowModal() {
+  return !localStorage.getItem('hasSeenInstructions');
+}
+
+// When the user clicks on <span> (x), close the modal
+closeBtn.onclick = function() {
+  modal.style.display = 'none';
+  // Set a flag in local storage indicating that the user has seen the instructions
+  localStorage.setItem('hasSeenInstructions', true);
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+    // Set a flag in local storage indicating that the user has seen the instructions
+    localStorage.setItem('hasSeenInstructions', true);
+  }
+}
+
+// Show the modal if necessary
+window.onload = function() {
+  if (shouldShowModal()) {
+    modal.style.display = 'block';
+  }
+}
