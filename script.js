@@ -3,6 +3,12 @@ const tiles = document.querySelectorAll('.tile');
 const playAgainButton = document.getElementById('play-again');
 const walletBalance = document.getElementById('wallet-balance');
 const withdrawButton = document.getElementById('withdraw');
+// Get the modal
+const modal = document.getElementById('instruction-modal');
+
+// Get the <span> element that closes the modal
+const closeBtn = document.getElementsByClassName('close')[0];
+
 let rewardedPoints = 0;
 let flippedTiles = 0;
 let tilesClickable = true; // Variable to track whether tiles are clickable
@@ -143,11 +149,6 @@ if (hamburgerIcon) {
 
 // Initialize the game
 setupGame();
-// Get the modal
-const modal = document.getElementById('instruction-modal');
-
-// Get the <span> element that closes the modal
-const closeBtn = document.getElementsByClassName('close')[0];
 
 // Function to check if the modal should be displayed
 function shouldShowModal() {
