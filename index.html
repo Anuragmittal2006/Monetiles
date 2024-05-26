@@ -13,6 +13,35 @@
     <!-- Welcome Message -->
     <div id="welcome-message" class="welcome-message"></div>
 
+    <!-- Question Mark Button -->
+    <button id="help-button" class="help-button">?</button>
+
+    <!-- Instruction Modal -->
+    <div id="instruction-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-page" id="page-1">
+          <h2>How to Play - Page 1</h2>
+          <p>Guess and Flip: Start by selecting a tile to flip. Will it reveal a treasure or remain a mystery?</p>
+          <p>Hunt for Rewards: Keep flipping tiles to uncover the three hidden treasures. Trust your instincts and aim for victory!</p>
+          <button id="next-1" class="next-button">Next</button>
+        </div>
+        <div class="modal-page" id="page-2" style="display:none;">
+          <h2>How to Play - Page 2</h2>
+          <p>Redeem Rewards: Once you've collected your treasures, redeem them for exciting gift cards from Amazon and Flipkart.</p>
+          <p>Play for More: The more you play, the higher your rewards! Engage with the game and watch your prizes grow.</p>
+          <button id="prev-2" class="prev-button">Previous</button>
+          <button id="next-2" class="next-button">Next</button>
+        </div>
+        <div class="modal-page" id="page-3" style="display:none;">
+          <h2>How to Play - Page 3</h2>
+          <p>Support with Ads: Every game session helps support the game's development through ads. Your gameplay fuels its success.</p>
+          <button id="prev-3" class="prev-button">Previous</button>
+          <button id="finish" class="finish-button">Finish</button>
+        </div>
+      </div>
+    </div>
+
     <div class="game-container">
       <div class="tile" id="tile1"></div>
       <div class="tile" id="tile2"></div>
@@ -86,8 +115,83 @@
 
         
       });
+
+      // Get the modal
+      const modal = document.getElementById('instruction-modal');
+
+      // Get the <span> element that closes the modal
+      const closeBtn = document.getElementsByClassName('close')[0];
+
+      // Pages and buttons
+      const pages = document.getElementsByClassName('modal-page');
+      const nextButtons = document.getElementsByClassName('next-button');
+      const prevButtons = document.getElementsByClassName('prev-button');
+      const finishButton = document.getElementById('finish');
+      const helpButton = document.getElementById('help-button');
+
+      // Show the first page onload
+      window.onload = function() {
+        if (shouldShowModal()) {
+          modal.style.display = 'block';
+          showPage(0);
+        }
+      }
+
+      // Show the specified page
+      function showPage(pageIndex) {
+        for (let i = 0; i < pages.length; i++) {
+          pages[i].style.display = 'none';
+        }
+        pages[pageIndex].style.display = 'block';
+      }
+
+      // Next button click event
+      for (let i = 0; i < nextButtons.length; i++) {
+        nextButtons[i].onclick = function() {
+          showPage(i + 1);
+        }
+      }
+
+      // Previous button click event
+      for (let i = 0; i < prevButtons.length; i++) {
+        prevButtons[i].onclick = function() {
+          showPage(i);
+        }
+      }
+
+      // Finish button click event
+      finishButton.onclick = function() {
+        modal.style.display = 'none';
+        localStorage.setItem('hasSeenInstructions', true);
+      }
+
+      // Close button click event
+      closeBtn.onclick = function() {
+        modal.style.display = 'none';
+        localStorage.setItem('hasSeenInstructions', true);
+      }
+
+      // Click outside the modal to close
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+          localStorage.setItem('hasSeenInstructions', true);
+        }
+      }
+
+      // Help button click event to show the modal
+      helpButton.onclick = function() {
+        modal.style.display = 'block';
+        showPage(0);
+      }
+
+      // Check if the modal should be displayed
+      function shouldShowModal() {
+        return !localStorage.getItem('hasSeenInstructions');
+      }
     </script>
     <script src="script.js"></script>
+    <script src="INSTRUCTION.JS"></script>
   </div>
 </body>
 </html>
