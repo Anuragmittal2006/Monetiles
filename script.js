@@ -3,7 +3,9 @@ const tiles = document.querySelectorAll('.tile');
 const playAgainButton = document.getElementById('play-again');
 const walletBalance = document.getElementById('wallet-balance');
 const withdrawButton = document.getElementById('withdraw');
-
+let rewardedPoints = 0;
+let flippedTiles = 0;
+let tilesClickable = true;
 // Add click event listener to the withdraw button
 withdrawButton.addEventListener('click', () => {
   // Redirect user to the withdraw page
