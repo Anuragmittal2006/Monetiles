@@ -46,6 +46,16 @@ function resetGame() {
   
   // Reset the game board and randomize tiles
   setupGame(true);
+  // Play again button functionality
+playAgainButton.addEventListener('click', () => {
+  // Reset game logic
+  resetGame();
+  
+  // Reload the page to increase page views
+  setTimeout(() => {
+    window.location.reload();
+  }, 500); // Short delay to ensure resetGame completes
+});
 }
 
 // Function to set up the game
