@@ -52,7 +52,7 @@ body, html {
 }
 
 .tile.flipped {
-  background-color: #000000;
+  background-color: #4aafce;
   transform: rotateY(180deg);
 }
 
