@@ -6,7 +6,7 @@ body, html {
   padding: 0;
   height: 100%;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135DEG,#2962FF, #00B0FF);
+  background: radial-gradient(circle,#17a8a3, #000000);
 }
 
 
@@ -52,7 +52,7 @@ body, html {
 }
 
 .tile.flipped {
-  background-color: #f9e4d7;
+  background-color: #000000;
   transform: rotateY(180deg);
 }
 
@@ -82,7 +82,7 @@ body, html {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  background-color: rgb(14, 14, 26);
+  background-color: rgb(0, 0, 0);
   color: white;
   border: none;
   border-radius: 5px;
@@ -104,7 +104,7 @@ body, html {
   top: 10px;
   right: 10px;
   padding: 10px;
-  background-color: rgb(14, 14, 26);
+  background-color: rgb(0, 0, 0);
   color: #fff;
   border-radius: 5px;
   
@@ -131,7 +131,7 @@ body, html {
   border-radius: 0.4rem;
   cursor: pointer;
   text-transform: uppercase;
-  background-color: rgb(14, 14, 26);
+  background-color: rgb(0, 0, 0);
   color: rgb(234, 234, 234);
   font-weight: 700;
   transition: 0.6s;
@@ -167,7 +167,7 @@ body, html {
   /* Adjustments for smaller screens */
   .btn {
     font-size: .5rem;
-    padding: 10px 0;
+    padding: 15px 0;
   }
 }
 /* Hamburger menu styles */
@@ -212,7 +212,7 @@ body, html {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: #333;
+  background-color: #000000;
   margin: 5px;
   transition: transform 0.3s ease;
 }
@@ -233,7 +233,7 @@ body, html {
   position: fixed;
   top: 5px;
   right: 120px;
-  background-color: rgb(14, 14, 26);
+  background-color: rgb(0, 0, 0);
   color: white;
   border: none;
   border-radius: 50%;
@@ -306,3 +306,4 @@ body, html {
   background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
   color: rgb(4, 4, 38);
 }
+
