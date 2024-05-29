@@ -6,6 +6,7 @@ const withdrawButton = document.getElementById('withdraw');
 let rewardedPoints = 0;
 let flippedTiles = 0;
 let tilesClickable = true; // Variable to track whether tiles are clickable
+let rewardedIndices = []; // Global variable to store rewarded indices
 
 // Add click event listener to the withdraw button
 withdrawButton.addEventListener('click', () => {
@@ -43,12 +44,12 @@ function resetGame() {
   flippedStatus = Array.from({ length: tiles.length }, () => 'unflipped');
   localStorage.setItem('flippedStatus', JSON.stringify(flippedStatus));
   
-  // Reset the game board
-  setupGame();
+  // Reset the game board and randomize tiles
+  setupGame(true);
 }
 
 // Function to set up the game
-function setupGame() {
+function setupGame(randomize = false) {
   // Reset wallet balance and flipped tiles counter
   updateWallet();
   updateFlippedTilesCount();
@@ -58,17 +59,16 @@ function setupGame() {
     tile.classList.remove('flipped');
     tile.innerHTML = ''; // Remove any previous reward text
     tile.style.pointerEvents = 'auto'; // Enable pointer events for all tiles
-    if (flippedStatus[index] === 'flipped' || flippedStatus[index] === 'rewarded') {
-      tile.classList.add('flipped');
-    }
   });
 
-  // Generate random indices for rewarded tiles
-  let rewardedIndices = generateRandomIndices(3, tiles.length);
+  // Generate random indices for rewarded tiles if needed
+  if (randomize) {
+    rewardedIndices = generateRandomIndices(3, tiles.length);
+  }
 
   // Assign click event listener to tiles
   tiles.forEach((tile, index) => {
-    tile.addEventListener('click', () => {
+    tile.onclick = () => {
       // Check if tiles are clickable
       if (!tilesClickable) return;
 
@@ -104,7 +104,7 @@ function setupGame() {
       setTimeout(() => {
         tilesClickable = true;
       }, 2000);
-    });
+    };
   });
 }
 
@@ -147,4 +147,4 @@ if (hamburgerIcon) {
 }
 
 // Initialize the game
-setupGame();
+setupGame(true); // Initialize with randomization
