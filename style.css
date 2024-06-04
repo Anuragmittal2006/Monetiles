@@ -66,9 +66,9 @@ body {
 }
 
 .amazon {
-  background: linear-gradient(135deg, black, 40%, orange, 50%, white);
+  background: linear-gradient(180deg, black, orange, white);
 }
 
 .flipkart {
-  background: linear-gradient(135deg, yellow, blue);
+  background: linear-gradient(180deg, yellow, blue);
 }
