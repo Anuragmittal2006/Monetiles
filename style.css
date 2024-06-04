@@ -3,7 +3,7 @@ body {
   background-color: #182B3A;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #2962FF, #00B0FF);
+ background: radial-gradient(circle, #17a8a3, #000000);
 }
 
 .container {
