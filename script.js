@@ -24,7 +24,11 @@ if (!flippedStatus) {
   renderFlippedTiles(); // Render flipped tiles based on stored status
 }
 
-
+// Function to update wallet balance display and local storage
+function updateWallet() {
+  walletBalance.textContent = rewardedPoints;
+  localStorage.setItem('rewardedPoints', rewardedPoints);
+}
 // Function to update flipped tiles count
 function updateFlippedTilesCount() {
   flippedTiles = flippedStatus.filter(status => status === 'flipped' || status === 'rewarded').length;
