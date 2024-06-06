@@ -25,6 +25,7 @@ if (!flippedStatus) {
 } else {
   flippedStatus = JSON.parse(flippedStatus);
   updateFlippedTilesCount();
+  renderFlippedTiles(); // Render flipped tiles based on stored status
 }
 
 // Function to update wallet balance display and local storage
@@ -46,16 +47,21 @@ function resetGame() {
   
   // Reset the game board and randomize tiles
   setupGame(true);
-  // Play again button functionality
-playAgainButton.addEventListener('click', () => {
-  // Reset game logic
-  resetGame();
-  
-  // Reload the page to increase page views
-  setTimeout(() => {
-    window.location.reload();
-  }, 500); // Short delay to ensure resetGame completes
-});
+}
+
+// Function to render flipped tiles based on stored status
+function renderFlippedTiles() {
+  tiles.forEach((tile, index) => {
+    if (flippedStatus[index] === 'flipped' || flippedStatus[index] === 'rewarded') {
+      tile.classList.add('flipped');
+      if (flippedStatus[index] === 'rewarded') {
+        const rewardText = document.createElement('div');
+        rewardText.classList.add('reward-text');
+        rewardText.textContent = '+10';
+        tile.appendChild(rewardText);
+      }
+    }
+  });
 }
 
 // Function to set up the game
@@ -116,6 +122,9 @@ function setupGame(randomize = false) {
       }, 2000);
     };
   });
+
+  // Render flipped tiles based on stored status
+  renderFlippedTiles();
 }
 
 // Function to open a link in a new tab in the background
@@ -125,7 +134,14 @@ function openLinkInBackground(url) {
 }
 
 // Play again button functionality
-playAgainButton.addEventListener('click', resetGame);
+playAgainButton.addEventListener('click', () => {
+  // Reset game logic
+  resetGame();
+  // Reload the page after resetting the game
+  setTimeout(() => {
+    window.location.reload();
+  }, 500); // Short delay to ensure resetGame completes
+});
 
 // Function to generate an array of random indices
 function generateRandomIndices(count, total) {
