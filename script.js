@@ -14,11 +14,7 @@ withdrawButton.addEventListener('click', () => {
   window.location.href = "withdraw.html";
 });
 
-// Load reward point history and flipped tiles from local storage
-if (localStorage.getItem('rewardedPoints')) {
-  rewardedPoints = parseInt(localStorage.getItem('rewardedPoints'));
-  updateWallet();
-}
+
 let flippedStatus = localStorage.getItem('flippedStatus');
 if (!flippedStatus) {
   flippedStatus = Array.from({ length: tiles.length }, () => 'unflipped');
@@ -28,11 +24,6 @@ if (!flippedStatus) {
   renderFlippedTiles(); // Render flipped tiles based on stored status
 }
 
-// Function to update wallet balance display and local storage
-function updateWallet() {
-  walletBalance.textContent = rewardedPoints;
-  localStorage.setItem('rewardedPoints', rewardedPoints);
-}
 
 // Function to update flipped tiles count
 function updateFlippedTilesCount() {
