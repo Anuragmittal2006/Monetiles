@@ -1,4 +1,3 @@
-// Define variables
 const tiles = document.querySelectorAll('.tile');
 const playAgainButton = document.getElementById('play-again');
 const walletBalance = document.getElementById('wallet-balance');
@@ -7,13 +6,13 @@ let rewardedPoints = 0;
 let flippedTiles = 0;
 let tilesClickable = true; // Variable to track whether tiles are clickable
 let rewardedIndices = []; // Global variable to store rewarded indices
+let linkIndices = []; // Global variable to store link indices
 
 // Add click event listener to the withdraw button
 withdrawButton.addEventListener('click', () => {
   // Redirect user to the withdraw page
   window.location.href = "withdraw.html";
 });
-
 
 let flippedStatus = localStorage.getItem('flippedStatus');
 if (!flippedStatus) {
@@ -29,6 +28,7 @@ function updateWallet() {
   walletBalance.textContent = rewardedPoints;
   localStorage.setItem('rewardedPoints', rewardedPoints);
 }
+
 // Function to update flipped tiles count
 function updateFlippedTilesCount() {
   flippedTiles = flippedStatus.filter(status => status === 'flipped' || status === 'rewarded').length;
@@ -39,7 +39,7 @@ function resetGame() {
   // Reset flipped status to 'unflipped'
   flippedStatus = Array.from({ length: tiles.length }, () => 'unflipped');
   localStorage.setItem('flippedStatus', JSON.stringify(flippedStatus));
-  
+
   // Reset the game board and randomize tiles
   setupGame(true);
 }
@@ -75,6 +75,7 @@ function setupGame(randomize = false) {
   // Generate random indices for rewarded tiles if needed
   if (randomize) {
     rewardedIndices = generateRandomIndices(3, tiles.length);
+    linkIndices = generateRandomIndices(6, tiles.length, rewardedIndices); // 3 tiles for links + 3 tiles for rewards = 6 total indices
   }
 
   // Assign click event listener to tiles
@@ -100,9 +101,10 @@ function setupGame(randomize = false) {
           // Change tile color when flipped
           tile.classList.add('flipped');
           flippedStatus[index] = 'rewarded';
-        } else {
+        } else if (linkIndices.includes(index)) {
           // Handle link tile click
-          openLinkInBackground("https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914");
+          const link = getLinkByIndex(index);
+          openLinkInBackground(link);
           tile.classList.add('flipped');
           flippedStatus[index] = 'flipped';
         }
@@ -138,16 +140,26 @@ playAgainButton.addEventListener('click', () => {
   }, 500); // Short delay to ensure resetGame completes
 });
 
-// Function to generate an array of random indices
-function generateRandomIndices(count, total) {
+// Function to generate an array of random indices, ensuring no overlap
+function generateRandomIndices(count, total, excludeIndices = []) {
   const indices = [];
   while (indices.length < count) {
     const index = Math.floor(Math.random() * total);
-    if (!indices.includes(index)) {
+    if (!indices.includes(index) && !excludeIndices.includes(index)) {
       indices.push(index);
     }
   }
   return indices;
+}
+
+// Function to get a link based on the index
+function getLinkByIndex(index) {
+  const links = [
+    "https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914",
+    "https://www.highcpmgate.com/mikmag27?key=bc21c52e359f18dec4976c9f545e33e7",
+    "https://www.highcpmgate.com/uuei2um4v5?key=c4b13dfbd53d2f969c2e27e09c6ba9d7"
+  ];
+  return links[index % links.length];
 }
 
 // Function to toggle hamburger menu visibility
