@@ -46,7 +46,7 @@ function hideSpinner() {
 // Function to update the wallet balance in the DOM
 function updateWalletBalance(balance) {
     const balanceDiv = document.getElementById("wallet");
-    balanceDiv.innerText = `Walletbalance: ${balance}`;
+    balanceDiv.innerText = `Wallet: ${balance}`;
 }
 
 // Function to listen to real-time updates for the user's document
