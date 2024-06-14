@@ -1,3 +1,4 @@
+
 const tiles = document.querySelectorAll('.tile');
 const playAgainButton = document.getElementById('play-again');
 const walletBalance = document.getElementById('wallet-balance');
@@ -26,7 +27,9 @@ if (!flippedStatus) {
 // Function to update wallet balance display and local storage
 function updateWallet() {
   walletBalance.textContent = rewardedPoints;
-  localStorage.setItem('rewardedPoints', rewardedPoints);
+  if (window.updateUserWalletBalance) {
+    window.updateUserWalletBalance(rewardedPoints); // Update the database
+}
 }
 
 // Function to update flipped tiles count
@@ -181,3 +184,5 @@ if (hamburgerIcon) {
 
 // Initialize the game
 setupGame(true); // Initialize with randomization
+// Call the function to fetch the initial wallet balance
+fetchUserWalletBalance();
