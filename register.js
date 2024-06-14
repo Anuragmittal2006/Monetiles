@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,7 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
-const db = getFirestore(app); // Initialize Firestore
+const db = getDatabase(app); // Initialize Realtime Database
 
 // Function to display messages
 function displayMessage(message, type = "info") {
@@ -49,13 +49,13 @@ function updateWalletBalance(balance) {
     balanceDiv.innerText = `Wallet: ${balance}`;
 }
 
-// Function to listen to real-time updates for the user's document
+// Function to listen to real-time updates for the user's data
 function listenToUserDocument(uid) {
-    const userDocRef = doc(db, "users", uid);
-    onSnapshot(userDocRef, (doc) => {
-        if (doc.exists()) {
-            const userData = doc.data();
-            updateWalletBalance(userData.walletBalance);
+    const userRef = ref(db, "users/" + uid);
+    onValue(userRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            updateWalletBalance(data.walletBalance);
         } else {
             console.log("No such document!");
         }
@@ -66,7 +66,7 @@ function listenToUserDocument(uid) {
 async function createUserDocument(uid, username) {
     console.log("Creating user document for UID:", uid);
     try {
-        await setDoc(doc(db, "users", uid), {
+        await set(ref(db, "users/" + uid), {
             username: username,
             walletBalance: 0 // Set initial wallet balance to 0
         });
@@ -78,6 +78,38 @@ async function createUserDocument(uid, username) {
         displayMessage(`Error creating user document: ${error.message}`, "error");
     }
 }
+// Function to update wallet balance in Realtime Database
+async function updateUserWalletBalance(newBalance) {
+    const user = auth.currentUser;
+    if (user) {
+        try {
+            await update(ref(db, `users/${user.uid}`), {
+                walletBalance: newBalance
+            });
+            console.log("Wallet balance successfully updated!");
+        } catch (error) {
+            console.error("Error updating wallet balance: ", error);
+            displayMessage(`Error updating wallet balance: ${error.message}`, "error");
+        }
+    }
+}
+// Attach the function to the global window object
+window.updateUserWalletBalance = updateUserWalletBalance;
+// Function to fetch wallet balance from Realtime Database
+function fetchUserWalletBalance() {
+    const user = auth.currentUser;
+    if (user) {
+        const userRef = ref(db, `users/${user.uid}`);
+        onValue(userRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data && data.walletBalance !== undefined) {
+                rewardedPoints = data.walletBalance;
+                updateWallet(); // Update the wallet balance on the screen
+            }
+        });
+    }
+}
+
 
 // Function to handle authentication state changes
 function handleAuthStateChange(user) {
@@ -98,16 +130,8 @@ function handleAuthStateChange(user) {
             window.location.href = "login.html"; // Redirect to login/signup page
         };
 
-        // Fetch wallet balance from Firestore
-        const userDocRef = doc(db, "users", user.uid);
-        onSnapshot(userDocRef, (doc) => {
-            if (doc.exists()) {
-                const data = doc.data();
-                updateWalletBalance(data.walletBalance || 0);
-            } else {
-                console.log("No such document!");
-            }
-        });
+        // Fetch and display the user's wallet balance
+        fetchUserWalletBalance();
 
     } else {
         // User is signed out
@@ -145,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then(() => {
                         displayMessage("Email verification sent! Please verify your email.", "info");
 
-                        // Create user document in Firestore
+                        // Create user document in Realtime Database
                         createUserDocument(user.uid, username);
 
                         // Check email verification status periodically
@@ -246,8 +270,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 displayMessage(errorMessage, "error");
             });
     });
+
     // Monitor auth state changes
     auth.onAuthStateChanged((user) => {
         handleAuthStateChange(user);
     });
 });
+// At the end of register.js
+export { updateUserWalletBalance };
