@@ -5,60 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gift Card Options</title>
   <link rel="stylesheet" href="style.css">
-  <script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-  </script>
+  <script src="payments.js" defer></script>
+  <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
   <meta name="google-adsense-account" content="ca-pub-4351253572981801">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4351253572981801"
-     crossorigin="anonymous"></script>
-  <script type="module" src="register.js" defer></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4351253572981801" crossorigin="anonymous"></script>
+ 
+<script type="module" src="register.js"defer></script>
 </head>
 <body>
-  <amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-4351253572981801">
-  </amp-auto-ads>
+  
+  <amp-auto-ads type="adsense" data-ad-client="ca-pub-4351253572981801"></amp-auto-ads>
   <div class="container">
-    <div class="option amazon">
+    
+    <div class="option amazon" onclick="toggleSubOptions('amazon-options')">
       <div class="content">
-        <img src="pngwing.com (1).png" alt="Amazon Logo">
-        <div class="sub-options">
-          <button class="sub-option" data-amount="10">Get ₹10 Amazon Gift Card</button>
-          <button class="sub-option" data-amount="25">Get ₹25 Amazon Gift Card</button>
-          <button class="sub-option" data-amount="50">Get ₹50 Amazon Gift Card</button>
+        <img src="amazon_logo.png" alt="Amazon Logo">
+        <div id="amazon-options" class="sub-options">
+          <button class="sub-option" data-brand="Amazon" data-amount="10">Get ₹10 Amazon Gift Card</button>
+          <button class="sub-option" data-brand="Amazon" data-amount="25">Get ₹25 Amazon Gift Card</button>
+          <button class="sub-option" data-brand="Amazon" data-amount="50">Get ₹50 Amazon Gift Card</button>
         </div>
       </div>
     </div>
-    <div class="option flipkart">
+    <div class="option flipkart" onclick="toggleSubOptions('flipkart-options')">
       <div class="content">
-        <img src="pngwing.com.png" alt="Flipkart Logo">
-        <div class="sub-options">
-          <button class="sub-option" data-amount="10">Get ₹10 Flipkart Gift Card</button>
-          <button class="sub-option" data-amount="25">Get ₹25 Flipkart Gift Card</button>
-          <button class="sub-option" data-amount="50">Get ₹50 Flipkart Gift Card</button>
+        <img src="flipkart_logo.png" alt="Flipkart Logo">
+        <div id="flipkart-options" class="sub-options">
+          <button class="sub-option" data-brand="Flipkart" data-amount="10">Get ₹10 Flipkart Gift Card</button>
+          <button class="sub-option" data-brand="Flipkart" data-amount="25">Get ₹25 Flipkart Gift Card</button>
+          <button class="sub-option" data-brand="Flipkart" data-amount="50">Get ₹50 Flipkart Gift Card</button>
         </div>
       </div>
     </div>
   </div>
+  <div id="wallet" class="wallet-box">Wallet: <span id="wallet-balance">0</span>
+  </div>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const buttons = document.querySelectorAll('.sub-option');
-      buttons.forEach(button => {
-        button.addEventListener('click', function() {
-          alert("This feature is still in development. Stay tuned!");
-        });
-      });
+    
+// Event listener for DOM content loaded
+document.addEventListener('DOMContentLoaded', function() {
+  const buttons = document.querySelectorAll('.sub-option');
+  buttons.forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default action of the button
+      event.stopPropagation(); // Prevent event from bubbling up to parent div
+      const brand = button.dataset.brand;
+      const amount = parseInt(button.dataset.amount);
+      requestGiftCard(brand, amount);
     });
+  });
+});
+ // Fetch and display wallet balance from Firebase
+ fetchUserWalletBalance();
+    function toggleSubOptions(id) {
+      const subOptions = document.getElementById(id);
+      subOptions.style.display = subOptions.style.display === "none" || subOptions.style.display === "" ? "flex" : "none";
+    }
+    
   </script>
-<script async src="https://js.onclckmn.com/static/onclicka.js" data-admpid="182849"></script>  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4351253572981801"
-     crossorigin="anonymous"></script>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-format="autorelaxed"
-       data-ad-client="ca-pub-4351253572981801"
-       data-ad-slot="8557255989"></ins>
+  <script async src="https://js.onclckmn.com/static/onclicka.js" data-admpid="182849"></script>
+  <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-4351253572981801" data-ad-slot="8557255989"></ins>
   <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
-  <a herf="https://bid.onclckstr.com/vast?spot_id=640334">       </a>
+ <script src="script.js"></script>
 </body>
 </html>
