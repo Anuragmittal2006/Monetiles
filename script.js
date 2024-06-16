@@ -1,4 +1,3 @@
-
 const tiles = document.querySelectorAll('.tile');
 const playAgainButton = document.getElementById('play-again');
 const walletBalance = document.getElementById('wallet-balance');
@@ -8,6 +7,12 @@ let flippedTiles = 0;
 let tilesClickable = true; // Variable to track whether tiles are clickable
 let rewardedIndices = []; // Global variable to store rewarded indices
 let linkIndices = []; // Global variable to store link indices
+
+// Function to initialize EmailJS
+function initializeEmailJS() {
+  emailjs.init("36v67UG9vlVGNuyC0");
+  console.log("EmailJS initialized");
+}
 
 // Add click event listener to the withdraw button
 withdrawButton.addEventListener('click', () => {
@@ -29,7 +34,23 @@ function updateWallet() {
   walletBalance.textContent = rewardedPoints;
   if (window.updateUserWalletBalance) {
     window.updateUserWalletBalance(rewardedPoints); // Update the database
+  }
+  console.log("Wallet updated: ", rewardedPoints);
 }
+
+// Function to fetch the initial wallet balance
+function fetchUserWalletBalance() {
+  if (window.fetchUserWalletBalance) {
+    window.fetchUserWalletBalance().then(balance => {
+      rewardedPoints = balance;
+      updateWallet();
+      console.log("Fetched wallet balance: ", balance);
+    }).catch(error => {
+      console.error("Error fetching wallet balance: ", error);
+    });
+  } else {
+    console.error("fetchUserWalletBalance function not found");
+  }
 }
 
 // Function to update flipped tiles count
@@ -37,7 +58,7 @@ function updateFlippedTilesCount() {
   flippedTiles = flippedStatus.filter(status => status === 'flipped' || status === 'rewarded').length;
 }
 
-// Function to reset game
+// Function to reset the game
 function resetGame() {
   // Reset flipped status to 'unflipped'
   flippedStatus = Array.from({ length: tiles.length }, () => 'unflipped');
@@ -182,7 +203,56 @@ if (hamburgerIcon) {
   hamburgerIcon.addEventListener('click', toggleMenu);
 }
 
+// Gift card redemption amounts and points required
+const giftCardAmounts = {
+  10: 1000,
+  25: 2500,
+  50: 5000
+};
+
+// Function to request gift card
+function requestGiftCard(brand, amount) {
+  const requiredPoints = giftCardAmounts[amount];
+  console.log(`Required points: ${requiredPoints}, Rewarded points: ${rewardedPoints}`);
+
+  if (rewardedPoints >= requiredPoints) {
+    if (confirm(`Do you want to redeem ₹${amount} ${brand} gift card?`)) {
+      console.log(`Confirmed redemption of ₹${amount} ${brand} gift card`);
+      rewardedPoints -= requiredPoints;
+      updateWallet();
+      alert(`Your ${brand} gift card request has been submitted. You will receive an email within 24 hours.`);
+      sendGiftCardRequestEmail(brand, amount);
+    } else {
+      console.log("Redemption cancelled by the user.");
+    }
+  } else {
+    alert("You do not have enough points to request this gift card.");
+    console.log("Not enough points for redemption.");
+  }
+}
+// Function to send an email using EmailJS
+function sendGiftCardRequestEmail(brand, amount) {
+  initializeEmailJS(); // Initialize EmailJS before sending an email
+  const userEmail = auth.currentUser.email; // Fetch the user's email
+  console.log(`Sending gift card request email for ${brand} ₹${amount} to ${userEmail}`);
+  emailjs.send("service_3zqh8v6", "template_25wr8pu", {
+    to_email: "mittalanurag2006@gmail.com", // Replace with your company email address
+    user_email: userEmail,
+    amount: amount,
+    user_points: rewardedPoints,
+    brand: brand
+  })
+  .then(response => {
+    console.log('Email sent successfully:', response.status, response.text);
+  })
+  .catch(error => {
+    console.error('Failed to send email:', error);
+  });
+}
+
 // Initialize the game
 setupGame(true); // Initialize with randomization
+
 // Call the function to fetch the initial wallet balance
 fetchUserWalletBalance();
+console.log("Initial wallet balance fetch called");
