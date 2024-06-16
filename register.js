@@ -150,7 +150,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Check initial auth state
     auth.onAuthStateChanged(handleAuthStateChange);
-
+    auth.onAuthStateChanged(handleAuthStateChange);
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        fetchUserWalletBalance();
+      }
+    });
     // Sign Up
     const signUpForm = document.getElementById('form1');
     signUpForm.addEventListener("submit", function (event) {
@@ -271,10 +276,16 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 
-    // Monitor auth state changes
     auth.onAuthStateChanged((user) => {
-        handleAuthStateChange(user);
+        if (user) {
+            console.log("User signed in: ", user);
+            handleAuthStateChange(user);
+        } else {
+            console.log("No user signed in.");
+            handleAuthStateChange(null);
+        }
     });
+    
 });
 // At the end of register.js
 export { updateUserWalletBalance };
