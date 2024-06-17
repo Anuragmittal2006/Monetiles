@@ -13,6 +13,27 @@ body {
   align-items: center;
   min-height: 100vh;
 }
+.homeButton {
+  position: absolute;
+  top: 10px;  /* Adjust as needed */
+  left: 10px; /* Adjust as needed */
+  background-color: black;
+  background-image: black;
+  border-radius: 15px;
+  border: white;
+  cursor: pointer;
+  padding: 0.9rem;
+  transition: transform 80ms ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.homeButton img {
+  width: 20px;
+  height: 20px;
+  transition: opacity 0.2s ease-in-out;
+}
 
 .option {
   background-color: #1E88E5;
