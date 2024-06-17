@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 displayMessage(errorMessage, "error");
             });
     });
- // Sign in with Google
+  // Sign in with Google
   const googleSignInButton = document.getElementById('google-signin');
   googleSignInButton.addEventListener("click", function () {
       signInWithPopup(auth, provider)
