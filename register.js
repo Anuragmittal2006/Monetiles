@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 // Your web app's Firebase configuration
@@ -21,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getDatabase(app); // Initialize Realtime Database
-
+const provider = new GoogleAuthProvider();
 // Function to display messages
 function displayMessage(message, type = "info") {
     const messageDiv = document.getElementById("message");
@@ -254,7 +254,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 displayMessage(errorMessage, "error");
             });
     });
-
+ // Sign in with Google
+  const googleSignInButton = document.getElementById('google-signin');
+  googleSignInButton.addEventListener("click", function () {
+      signInWithPopup(auth, provider)
+          .then((result) => {
+              const user = result.user;
+              console.log("Google sign-in successful:", user);
+              // Create user document in Realtime Database if it doesn't exist
+              createUserDocument(user.uid, user.displayName || user.email);
+              // Redirect to index.html
+              window.location.href = `index.html?username=${encodeURIComponent(user.email)}`;
+          })
+          .catch((error) => {
+              displayMessage(`Google sign-in error: ${error.message}`, "error");
+          });
+  });
     // Forgot Password
     const forgotPasswordLink = document.getElementById('forgot-password-link');
     forgotPasswordLink.addEventListener("click", function (event) {
