@@ -9,17 +9,24 @@
   <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
   <meta name="google-adsense-account" content="ca-pub-4351253572981801">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4351253572981801" crossorigin="anonymous"></script>
- 
-<script type="module" src="register.js"defer></script>
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      emailjs.init("36v67UG9vlVGNuyC0"); // Replace with your actual user ID from EmailJS
+    })();
+  </script>
+
+  
+
+  <script type="module" src="register.js" defer></script>
 </head>
 <body>
-  
   <amp-auto-ads type="adsense" data-ad-client="ca-pub-4351253572981801"></amp-auto-ads>
   <div class="container">
-     <button class="homeButton" onclick="window.location.href='index.html'"><img src="home.png" alt="Home"></button>
+    <button class="homeButton" onclick="window.location.href='index.html'"><img src="home.png" alt="Home"></button>
     <div class="option amazon" onclick="toggleSubOptions('amazon-options')">
       <div class="content">
-        <img src="amazon_logo.png" alt="Amazon Logo">
+        <img class="logo"  src="amazon logo.png" alt="Amazon Logo" >
         <div id="amazon-options" class="sub-options">
           <button class="sub-option" data-brand="Amazon" data-amount="10">Get ₹10 Amazon Gift Card</button>
           <button class="sub-option" data-brand="Amazon" data-amount="25">Get ₹25 Amazon Gift Card</button>
@@ -29,46 +36,154 @@
     </div>
     <div class="option flipkart" onclick="toggleSubOptions('flipkart-options')">
       <div class="content">
-        <img src="flipkart_logo.png" alt="Flipkart Logo">
+        <img src="playstore.png" class="logo" alt="Google Play Logo">
         <div id="flipkart-options" class="sub-options">
-          <button class="sub-option" data-brand="Flipkart" data-amount="10">Get ₹10 Flipkart Gift Card</button>
-          <button class="sub-option" data-brand="Flipkart" data-amount="25">Get ₹25 Flipkart Gift Card</button>
-          <button class="sub-option" data-brand="Flipkart" data-amount="50">Get ₹50 Flipkart Gift Card</button>
+          <button class="sub-option" data-brand="Google Play" data-amount="10">Get ₹10 Google Play credit</button>
+          <button class="sub-option" data-brand="Google Play" data-amount="25">Get ₹25 Google Play credit</button>
+          <button class="sub-option" data-brand="Google Play" data-amount="50">Get ₹50 Google Play credit</button>
         </div>
       </div>
     </div>
   </div>
-  <div id="wallet" class="wallet-box">Wallet: <span id="wallet-balance">0</span>
+  <div id="wallet" class="wallet-box">Wallet: <span id="wallet-balance">0</span></div>
+   <!-- The Modal -->
+   <div id="emailModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Enter your email to receive the redemption details:</p>
+      <input type="email" id="userEmail" placeholder="Enter your email" required>
+      <button id="confirmEmail">Confirm Email</button>
+    </div>
   </div>
   <script>
-    
-// Event listener for DOM content loaded
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
   const buttons = document.querySelectorAll('.sub-option');
   buttons.forEach(button => {
     button.addEventListener('click', function(event) {
       event.preventDefault(); // Prevent default action of the button
       event.stopPropagation(); // Prevent event from bubbling up to parent div
+
       const brand = button.dataset.brand;
       const amount = parseInt(button.dataset.amount);
-      alert("This feature is in development, Stay Tuned.");
-      requestGiftCard(brand, amount);
+      const requiredPoints = amount * 100;
+
+      // Check if the user has enough points
+      if (rewardedPoints >= requiredPoints) {
+        // Confirm with the user
+        const confirmation = confirm(`Are you sure you want to redeem ₹${amount} ${brand} Gift Card for ${requiredPoints} points?`);
+        if (confirmation) {
+          try {
+            // Deduct points from the wallet
+            rewardedPoints -= requiredPoints;
+            updateWallet();
+            console.log(`Wallet updated. Remaining points: ${rewardedPoints}`);
+
+            // Show the modal to enter email
+            showModal(brand, amount, requiredPoints);
+
+            // Event listener for email confirmation
+            document.getElementById('confirmEmail').addEventListener('click', function() {
+              const userEmail = document.getElementById('userEmail').value;
+              if (userEmail) {
+                // Final confirmation
+                const finalConfirmation = confirm(`Are you sure you want to redeem ₹${amount} ${brand} Gift Card for ${requiredPoints} points and send details to ${userEmail}?`);
+                if (finalConfirmation) {
+                  sendRedemptionEmail(userEmail, brand, amount, requiredPoints); // EmailJS function call
+                  // Close the modal
+                  closeModal();
+                }
+              } else {
+                alert('Please enter a valid email address.');
+              }
+            });
+
+          } catch (error) {
+            console.error("Error during redemption process:", error);
+          }
+        }
+      } else {
+        alert("You don't have enough points to redeem this gift card.");
+        console.log(`Insufficient points. Required: ${requiredPoints}, Available: ${rewardedPoints}`);
+      }
     });
   });
+
+  // Function to send email using EmailJS
+  function sendRedemptionEmail(userEmail, brand, amount, points) {
+    console.log("Calling sendRedemptionEmail function");
+    emailjs.send("service_3zqh8v6", "template_25wr8pu", {
+      user_email: userEmail,
+      redeemed_brand: brand,
+      redeemed_amount: amount,
+      redeemed_points: points
+    })
+    .then((response) => {
+      console.log("Email sent successfully!", response.status, response.text);
+      // Show confirmation message to user
+      showConfirmationMessage();
+    })
+    .catch((error) => {
+      console.error("Error sending email:", error);
+      alert('There was an error sending the email. Please try again.');
+    });
+  }
+
+  // Function to show modal
+  function showModal(brand, amount, requiredPoints) {
+    const modal = document.getElementById('emailModal');
+    modal.style.display = "block";
+
+    // Close modal when user clicks on <span> (x)
+    document.querySelector('.close').onclick = function() {
+      closeModal();
+    };
+
+    // Close modal when user clicks anywhere outside of the modal
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        closeModal();
+      }
+    };
+  }
+
+  // Function to close modal
+  function closeModal() {
+    const modal = document.getElementById('emailModal');
+    modal.style.display = "none";
+  }
+
+  // Function to show confirmation message
+  function showConfirmationMessage() {
+    alert('Your request has been submitted successfully. You will receive your gift card in your email within 24 hours.');
+  }
 });
- // Fetch and display wallet balance from Firebase
- fetchUserWalletBalance();
+
+
+
+
+
+    // Fetch and display wallet balance from Firebase
+    fetchUserWalletBalance();
+
     function toggleSubOptions(id) {
       const subOptions = document.getElementById(id);
       subOptions.style.display = subOptions.style.display === "none" || subOptions.style.display === "" ? "flex" : "none";
     }
-    
   </script>
-  <script async src="https://js.onclckmn.com/static/onclicka.js" data-admpid="182849"></script>
   <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-4351253572981801" data-ad-slot="8557255989"></ins>
   <script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
+    (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
- <script src="script.js"></script>
+  <script src="script.js"></script>
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2024 Monetiles. All rights reserved.</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/treasure_tiles?igsh=MXFzMG9vb2htcWxlZw==" target="_blank"><img src="instagram.png" alt="Instagram" class="social-icon"></a>
+        <a href="https://www.facebook.com/yourprofile" target="_blank"><img src="facebook.png" alt="Facebook" class="social-icon"></a>
+        <a href="https://x.com/monetiles" target="_blank"><img src="twitter.png" alt="X" class="social-icon"></a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
