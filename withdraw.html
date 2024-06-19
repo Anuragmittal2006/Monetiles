@@ -86,7 +86,7 @@
               const userEmail = document.getElementById('userEmail').value;
               if (userEmail) {
                 // Final confirmation
-                const finalConfirmation = confirm(`Are you sure you want to redeem ₹${amount} ${brand} Gift Card for ${requiredPoints} points and send details to ${userEmail}?`);
+                const finalConfirmation = confirm(`Are you sure you want to redeem ₹${amount} ${brand} Gift Card for ${requiredPoints} points and get gift card details on ${userEmail}?`);
                 if (finalConfirmation) {
                   sendRedemptionEmail(userEmail, brand, amount, requiredPoints); // EmailJS function call
                   // Close the modal
