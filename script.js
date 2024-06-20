@@ -251,7 +251,7 @@ function sendGiftCardRequestEmail(brand, amount) {
 setTimeout(() => {
   console.log("Starting game setup after delay...");
   setupGame(true); // Initialize with randomization
-}, 4000); // 3 seconds delay
+}, 5000); // 5 seconds delay
 
 // Call the function to fetch the initial wallet balance
 fetchUserWalletBalance();
