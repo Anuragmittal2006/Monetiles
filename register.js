@@ -136,7 +136,7 @@ function handleAuthStateChange(user) {
     } else {
         // User is signed out
         console.log("User is signed out.");
-        welcomeMessage.innerText = "";
+        welcomeMessage.innerText = "Please go to the menu and log in or sign up to begin your journey!";
         authButton.innerText = "Login / Sign Up";
         authButton.onclick = () => {
             window.location.href = "login.html"; // Redirect to login/signup page
