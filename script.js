@@ -248,8 +248,10 @@ function sendGiftCardRequestEmail(brand, amount) {
   });
 }
 
-// Initialize the game
-setupGame(true); // Initialize with randomization
+setTimeout(() => {
+  console.log("Starting game setup after delay...");
+  setupGame(true); // Initialize with randomization
+}, 4000); // 3 seconds delay
 
 // Call the function to fetch the initial wallet balance
 fetchUserWalletBalance();
