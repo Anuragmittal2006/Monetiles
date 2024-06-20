@@ -179,9 +179,7 @@ function generateRandomIndices(count, total, excludeIndices = []) {
 // Function to get a link based on the index
 function getLinkByIndex(index) {
   const links = [
-    "https://www.highcpmgate.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914",
-    "https://www.highcpmgate.com/mikmag27?key=bc21c52e359f18dec4976c9f545e33e7",
-    "https://www.highcpmgate.com/uuei2um4v5?key=c4b13dfbd53d2f969c2e27e09c6ba9d7"
+    "https://www.highrevenuenetwork.com/pazsaj4uw?key=96d6b5643981606d838ba9e493e49914"
   ];
   return links[index % links.length];
 }
