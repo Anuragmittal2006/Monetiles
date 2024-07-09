@@ -1,0 +1,33 @@
+# Allow all user agents to crawl the site
+User-agent: *
+
+# Disallow crawling of sensitive files and directories
+Disallow: /INSTRUCTION.JS
+Disallow: /alpha.js
+Disallow: /beta.js
+Disallow: /home.js
+Disallow: /music.js
+Disallow: /main.js
+Disallow: /styles.css
+Disallow: /style.css
+Disallow: /home.css
+Disallow: /login.css
+Disallow: /music.css
+
+
+# Disallow crawling of image files (optional, if you don't want images to be indexed)
+Disallow: /*.png$
+Disallow: /*.jpg$
+Disallow: /*.gif$
+Disallow: /*.jpeg$
+
+# Allow specific pages
+Allow: /home.html
+Allow: /index.html
+Allow: /review.html
+Allow: /withdraw.html
+Allow: /login.html
+Allow: /maintenance.html
+
+# Specify the location of the sitemap
+Sitemap: https://www.monetiles.com/sitemap_index.xml
