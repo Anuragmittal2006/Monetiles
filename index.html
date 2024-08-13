@@ -23,4 +23,35 @@
       "genre": ["Puzzle", "Casual", "Trivia", "Strategy", "Arcade", "Reward-Based", "Interactive", "Online Earnings"],
       "applicationCategory": "Game",
       "operatingSystem": "Web"
-    }</script></head><body><header><div class=logo-container><img src=FAVICON.png alt="monetiles logo" class=logo onclick='window.location.href="home.html"'><h1 onclick='window.location.href="home.html"'>Monetiles</h1></div></header><div class=container><canvas id=confettiCanvas></canvas><div id=welcome-message class=welcome-message></div><div class=game-container><div class=tile id=tile1></div><div class=tile id=tile2></div><div class=tile id=tile3></div><div class=tile id=tile4></div><div class=tile id=tile5></div><div class=tile id=tile6></div><div class=tile id=tile7></div><div class=tile id=tile8></div><div class=tile id=tile9></div></div><button id=play-again>Play Again</button><canvas id=confettiCanvas></canvas><div class=menu-container><div id=wallet class=wallet-box>Wallet: <span id=wallet-balance>0</span></div><div class=hamburger-menu><button class=hamburger-icon><span></span><span></span><span></span></button><div class=menu-items><div class=menu-column><button id=withdraw class=btn>Withdraw</button><button id=home class=btn onclick='window.location.href="home.html"'>tutorial</button><button id=auth-button class=btn></button> <button id=review class=btn onclick='window.location.href="contact.html"'>Review</button></div></div><div class=toggle-container><h4><P style=font-weight:700>MUSIC</P></h4><label class=switch><input id=play-toggle type=checkbox><span class=slider></span></label></div><audio id=tap-sound src="tile tap.mp3" preload=auto></audio><audio id=play-again-sound src="tile cracking.mp3" preload=auto></audio></div><script src=alpha.js></script><script src=beta.js></script><script src=music.js></script><script src=confetti.js></script></div><footer><div class=footer-content><p>&copy; 2024 Monetiles. All rights reserved.</p><div class=social-links><a href="https://www.instagram.com/treasure_tiles?igsh=MXFzMG9vb2htcWxlZw==" target=_blank><img src=instagram.png alt=Instagram class=social-icon></a><a href=https://www.facebook.com/yourprofile target=_blank><img src=facebook.png alt=Facebook class=social-icon></a><a href=https://x.com/monetiles target=_blank><img src=twitter.png alt=X class=social-icon></a></div></div></footer></div></body></html>
+    }</script></head><body><header><div class=logo-container><img src=FAVICON.png alt="monetiles logo" class=logo onclick='window.location.href="home.html"'><h1 onclick='window.location.href="home.html"'>Monetiles</h1></div></header><div class=container><canvas id=confettiCanvas></canvas><div id=welcome-message class=welcome-message></div><div class=game-container><div class=tile id=tile1></div><div class=tile id=tile2></div><div class=tile id=tile3></div><div class=tile id=tile4></div><div class=tile id=tile5></div><div class=tile id=tile6></div><div class=tile id=tile7></div><div class=tile id=tile8></div><div class=tile id=tile9></div></div><button id=play-again>Play Again</button><canvas id=confettiCanvas></canvas><div class=menu-container><div id=wallet class=wallet-box>Wallet: <span id=wallet-balance>0</span></div><div class=hamburger-menu><button class=hamburger-icon><span></span><span></span><span></span></button><div class=menu-items><div class=menu-column><button id=withdraw class=btn>Withdraw</button><button id=home class=btn onclick='window.location.href="home.html"'>tutorial</button><button id=auth-button class=btn></button> <button id=review class=btn onclick='window.location.href="contact.html"'>Review</button></div></div><div class=toggle-container><h4><P style=font-weight:700>MUSIC</P></h4><label class=switch><input id=play-toggle type=checkbox><span class=slider></span></label></div><audio id=tap-sound src="tile tap.mp3" preload=auto></audio><audio id=play-again-sound src="tile cracking.mp3" preload=auto></audio></div><script src=alpha.js></script><script src=beta.js></script><script src=music.js></script><script src=confetti.js></script></div><footer><div class=footer-content><p>&copy; 2024 Monetiles. All rights reserved.</p><div class=social-links><a href="https://www.instagram.com/treasure_tiles?igsh=MXFzMG9vb2htcWxlZw==" target=_blank><img src=instagram.png alt=Instagram class=social-icon></a><a href=https://www.facebook.com/yourprofile target=_blank><img src=facebook.png alt=Facebook class=social-icon></a><a href=https://x.com/monetiles target=_blank><img src=twitter.png alt=X class=social-icon></a></div></div></footer></div> <script>if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(function(error) {
+            console.log('ServiceWorker registration failed: ', error);
+          });
+      }
+      let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show your custom install button here
+  document.getElementById('installButton').style.display = 'block';
+});
+
+document.getElementById('installButton').addEventListener('click', () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((result) => {
+      if (result.outcome === 'accepted') {
+        console.log('User accepted the A2HS prompt');
+      } else {
+        console.log('User dismissed the A2HS prompt');
+      }
+      deferredPrompt = null;
+    });
+  }
+});
+
+      </script></body></html>
