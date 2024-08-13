@@ -1,0 +1,53 @@
+{
+    "name": "Monetiles",
+    "short_name": "Monetiles",
+    "description": "Play games and earn gift cards with Monetiles!",
+    "start_url": "/index.html",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "orientation": "portrait",
+    "icons": [
+      {
+        "src": "android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "splash_pages": [
+      "FAVICON.png"
+    ],
+    "lang": "en-US",
+    "screenshots": [
+      {
+        "src": "WhatsApp Image 2024-08-13 at 3.04.43 PM.jpeg",
+        "sizes": "540x1204",
+        "type": "image/png",
+        "form_factor": "narrow"
+      },
+      {
+        "src": "WhatsApp Image 2024-08-13 at 3.04.43 PM (1).jpeg",
+        "sizes": "540x1204",
+        "type": "image/png",
+        "form_factor": "narrow"
+      },
+      {
+        "src": "Screenshot2024-08-13145727.jpeg",
+        "sizes": "1346x593",
+        "type": "image/png",
+        "form_factor": "wide"
+      },{
+        "src": "Screenshot 2024-08-13 150100.png",
+        "sizes": "1346x593",
+        "type": "image/png",
+        "form_factor": "wide"
+      }
+    ]
+  }
+  
